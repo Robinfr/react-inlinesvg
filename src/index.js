@@ -111,7 +111,9 @@ export default class InlineSVG extends React.PureComponent {
         http.get(src, (err, res) => {
           getRequestsByUrl[src].forEach(cb => {
             loadedIcons[src] = [err, res];
-            cb(err, res);
+            if (src === this.props.src) {
+              cb(err, res);
+            }
           });
         });
       }
@@ -120,7 +122,9 @@ export default class InlineSVG extends React.PureComponent {
     }
     else {
       http.get(src, (err, res) => {
-        callback(err, res);
+        if (src === this.props.src) {
+          callback(err, res);
+        }
       });
     }
   }
